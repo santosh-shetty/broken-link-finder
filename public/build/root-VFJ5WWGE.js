@@ -91,17 +91,22 @@ function Layout({
             }
 
             body {
-              max-width: 1200px;
-              margin: 0 auto;
-              padding: 2rem;
+              margin: 0;
+              padding: 0;
               background-color: #f8fafc;
+              min-height: 100vh;
+            }
+
+            .container {
+              width: 100%;
             }
 
             header.app-header {
-              padding: 2rem 0;
+              background: white;
+              border-bottom: 1px solid #e2e8f0;
+              padding: 2rem;
               margin-bottom: 2rem;
               text-align: center;
-              border-bottom: 1px solid #e2e8f0;
             }
 
             header.app-header h1 {
@@ -119,11 +124,11 @@ function Layout({
             }
 
             .card {
-              padding: 1.5rem;
+              background: white;
               border-radius: var(--border-radius);
-              background: var(--card-background);
               box-shadow: var(--card-shadow);
               border: 1px solid #e2e8f0;
+              padding: 2rem;
             }
 
             .card header {
@@ -282,38 +287,38 @@ function Layout({
         /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("header", { className: "app-header", children: [
           /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("h1", { children: "Broken Link Finder" }, void 0, false, {
             fileName: "app/root.tsx",
-            lineNumber: 237,
+            lineNumber: 242,
             columnNumber: 13
           }, this),
           /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("p", { children: "Find and fix broken links on your website" }, void 0, false, {
             fileName: "app/root.tsx",
-            lineNumber: 238,
+            lineNumber: 243,
             columnNumber: 13
           }, this)
         ] }, void 0, true, {
           fileName: "app/root.tsx",
-          lineNumber: 236,
+          lineNumber: 241,
           columnNumber: 11
         }, this),
         children
       ] }, void 0, true, {
         fileName: "app/root.tsx",
-        lineNumber: 235,
+        lineNumber: 240,
         columnNumber: 9
       }, this),
       /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)(ScrollRestoration, {}, void 0, false, {
         fileName: "app/root.tsx",
-        lineNumber: 242,
+        lineNumber: 247,
         columnNumber: 9
       }, this),
       /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)(Scripts, {}, void 0, false, {
         fileName: "app/root.tsx",
-        lineNumber: 243,
+        lineNumber: 248,
         columnNumber: 9
       }, this)
     ] }, void 0, true, {
       fileName: "app/root.tsx",
-      lineNumber: 234,
+      lineNumber: 239,
       columnNumber: 7
     }, this)
   ] }, void 0, true, {
@@ -326,7 +331,7 @@ _c = Layout;
 function App() {
   return /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)(Outlet, {}, void 0, false, {
     fileName: "app/root.tsx",
-    lineNumber: 249,
+    lineNumber: 254,
     columnNumber: 10
   }, this);
 }
@@ -342,4 +347,4 @@ export {
   App as default,
   links
 };
-//# sourceMappingURL=/build/root-KAEUDWAU.js.map
+//# sourceMappingURL=/build/root-VFJ5WWGE.js.map

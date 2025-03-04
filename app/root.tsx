@@ -44,17 +44,22 @@ export function Layout({ children }: { children: React.ReactNode }) {
             }
 
             body {
-              max-width: 1200px;
-              margin: 0 auto;
-              padding: 2rem;
+              margin: 0;
+              padding: 0;
               background-color: #f8fafc;
+              min-height: 100vh;
+            }
+
+            .container {
+              width: 100%;
             }
 
             header.app-header {
-              padding: 2rem 0;
+              background: white;
+              border-bottom: 1px solid #e2e8f0;
+              padding: 2rem;
               margin-bottom: 2rem;
               text-align: center;
-              border-bottom: 1px solid #e2e8f0;
             }
 
             header.app-header h1 {
@@ -72,11 +77,11 @@ export function Layout({ children }: { children: React.ReactNode }) {
             }
 
             .card {
-              padding: 1.5rem;
+              background: white;
               border-radius: var(--border-radius);
-              background: var(--card-background);
               box-shadow: var(--card-shadow);
               border: 1px solid #e2e8f0;
+              padding: 2rem;
             }
 
             .card header {

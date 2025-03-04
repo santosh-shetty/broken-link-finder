@@ -4119,7 +4119,7 @@ if (import.meta) {
     //@ts-expect-error
     "app/routes/_index.tsx"
   );
-  import.meta.hot.lastModified = "1741108312483.9456";
+  import.meta.hot.lastModified = "1741109079858.5295";
 }
 var meta = () => {
   return [{
@@ -4138,302 +4138,401 @@ function Index() {
   const actionData = useActionData();
   const navigation = useNavigation();
   const isSubmitting = navigation.state === "submitting";
-  return /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("div", { className: "grid gap-6", children: [
-    /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("article", { className: "card", children: [
-      /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("header", { children: [
+  return /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("div", { style: {
+    width: "100%",
+    maxWidth: "100%"
+  }, children: /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("div", { className: "grid", style: {
+    display: "grid",
+    gridTemplateColumns: "repeat(1, 1fr)",
+    gap: "2rem",
+    margin: "0 auto",
+    maxWidth: "1400px",
+    padding: "0 2rem"
+  }, children: [
+    /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("article", { className: "card", style: {
+      maxWidth: "800px",
+      margin: "0 auto"
+    }, children: [
+      /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("header", { style: {
+        marginBottom: "2rem",
+        textAlign: "center"
+      }, children: [
         /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("h2", { children: "Start Website Scan" }, void 0, false, {
           fileName: "app/routes/_index.tsx",
-          lineNumber: 67,
-          columnNumber: 11
+          lineNumber: 84,
+          columnNumber: 13
         }, this),
         /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("p", { children: "Enter your website URL and configure scan settings below" }, void 0, false, {
           fileName: "app/routes/_index.tsx",
-          lineNumber: 68,
-          columnNumber: 11
+          lineNumber: 85,
+          columnNumber: 13
         }, this)
       ] }, void 0, true, {
         fileName: "app/routes/_index.tsx",
-        lineNumber: 66,
-        columnNumber: 9
+        lineNumber: 80,
+        columnNumber: 11
       }, this),
-      /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)(Form, { method: "post", className: "grid gap-4", children: [
-        /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("div", { className: "grid", children: [
-          /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("label", { htmlFor: "url", children: "Website URL" }, void 0, false, {
+      /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)(Form, { method: "post", className: "grid gap-4", style: {
+        maxWidth: "600px",
+        margin: "0 auto"
+      }, children: /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("div", { className: "grid gap-3", style: {
+        gridTemplateColumns: "repeat(1, 1fr)"
+      }, children: [
+        /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("div", { className: "form-group", children: [
+          /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("label", { htmlFor: "url", style: {
+            display: "block",
+            marginBottom: "0.5rem",
+            fontWeight: "500"
+          }, children: "Website URL" }, void 0, false, {
             fileName: "app/routes/_index.tsx",
-            lineNumber: 73,
-            columnNumber: 13
+            lineNumber: 96,
+            columnNumber: 17
           }, this),
-          /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("div", { className: "input-group", children: [
-            /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("input", { type: "url", id: "url", name: "url", required: true, placeholder: "https://example.com", "aria-invalid": actionData?.errors?.url ? true : void 0, "aria-errormessage": actionData?.errors?.url ? "url-error" : void 0 }, void 0, false, {
+          /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("div", { className: "input-group", style: {
+            display: "flex",
+            gap: "0.5rem",
+            alignItems: "stretch"
+          }, children: [
+            /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("input", { type: "url", id: "url", name: "url", required: true, placeholder: "https://example.com", "aria-invalid": actionData?.errors?.url ? true : void 0, "aria-errormessage": actionData?.errors?.url ? "url-error" : void 0, style: {
+              flex: "1",
+              height: "2.75rem",
+              fontSize: "1rem",
+              padding: "0 1rem",
+              width: "fit-content"
+            } }, void 0, false, {
               fileName: "app/routes/_index.tsx",
-              lineNumber: 75,
-              columnNumber: 15
+              lineNumber: 108,
+              columnNumber: 19
             }, this),
             /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("button", { type: "submit", "aria-busy": isSubmitting, style: {
-              minWidth: "120px",
+              minWidth: "140px",
+              height: "2.75rem",
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
-              gap: "0.5rem"
+              gap: "0.5rem",
+              fontSize: "1rem",
+              fontWeight: "500"
             }, children: isSubmitting ? /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)(import_jsx_dev_runtime.Fragment, { children: [
               /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("span", { className: "loading" }, void 0, false, {
                 fileName: "app/routes/_index.tsx",
-                lineNumber: 84,
-                columnNumber: 21
+                lineNumber: 126,
+                columnNumber: 25
               }, this),
               /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("span", { children: "Scanning..." }, void 0, false, {
                 fileName: "app/routes/_index.tsx",
-                lineNumber: 85,
-                columnNumber: 21
+                lineNumber: 127,
+                columnNumber: 25
               }, this)
             ] }, void 0, true, {
               fileName: "app/routes/_index.tsx",
-              lineNumber: 83,
-              columnNumber: 33
+              lineNumber: 125,
+              columnNumber: 37
             }, this) : /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)(import_jsx_dev_runtime.Fragment, { children: [
               /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("svg", { width: "20", height: "20", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round", children: [
                 /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("circle", { cx: "11", cy: "11", r: "8" }, void 0, false, {
                   fileName: "app/routes/_index.tsx",
-                  lineNumber: 88,
-                  columnNumber: 23
+                  lineNumber: 130,
+                  columnNumber: 27
                 }, this),
                 /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("line", { x1: "21", y1: "21", x2: "16.65", y2: "16.65" }, void 0, false, {
                   fileName: "app/routes/_index.tsx",
-                  lineNumber: 89,
-                  columnNumber: 23
+                  lineNumber: 131,
+                  columnNumber: 27
                 }, this)
               ] }, void 0, true, {
                 fileName: "app/routes/_index.tsx",
-                lineNumber: 87,
-                columnNumber: 21
+                lineNumber: 129,
+                columnNumber: 25
               }, this),
               /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("span", { children: "Start Scan" }, void 0, false, {
                 fileName: "app/routes/_index.tsx",
-                lineNumber: 91,
-                columnNumber: 21
+                lineNumber: 133,
+                columnNumber: 25
               }, this)
             ] }, void 0, true, {
               fileName: "app/routes/_index.tsx",
-              lineNumber: 86,
-              columnNumber: 25
+              lineNumber: 128,
+              columnNumber: 29
             }, this) }, void 0, false, {
               fileName: "app/routes/_index.tsx",
-              lineNumber: 76,
-              columnNumber: 15
+              lineNumber: 115,
+              columnNumber: 19
             }, this)
           ] }, void 0, true, {
             fileName: "app/routes/_index.tsx",
-            lineNumber: 74,
-            columnNumber: 13
+            lineNumber: 103,
+            columnNumber: 17
           }, this),
           actionData?.errors?.url && /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("small", { id: "url-error", style: {
-            color: "var(--error-color)"
+            color: "var(--error-color)",
+            display: "block",
+            marginTop: "0.5rem"
           }, children: actionData.errors.url }, void 0, false, {
             fileName: "app/routes/_index.tsx",
-            lineNumber: 95,
-            columnNumber: 41
+            lineNumber: 137,
+            columnNumber: 45
           }, this),
-          /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("small", { className: "help-text", children: "Enter the root URL of the website you want to scan for broken links" }, void 0, false, {
+          /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("small", { className: "help-text", style: {
+            display: "block",
+            marginTop: "0.5rem",
+            color: "var(--muted-color)"
+          }, children: "Enter the root URL of the website you want to scan for broken links" }, void 0, false, {
             fileName: "app/routes/_index.tsx",
-            lineNumber: 100,
-            columnNumber: 13
+            lineNumber: 144,
+            columnNumber: 17
           }, this)
         ] }, void 0, true, {
           fileName: "app/routes/_index.tsx",
-          lineNumber: 72,
-          columnNumber: 11
+          lineNumber: 95,
+          columnNumber: 15
         }, this),
-        /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("details", { children: [
-          /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("summary", { role: "button", className: "secondary outline", children: "Advanced Settings" }, void 0, false, {
+        /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("details", { style: {
+          marginTop: "1.5rem"
+        }, children: [
+          /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("summary", { role: "button", className: "secondary outline", style: {
+            padding: "0.75rem 1rem",
+            fontWeight: "500",
+            display: "flex",
+            alignItems: "center",
+            gap: "0.5rem"
+          }, children: [
+            /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("svg", { width: "18", height: "18", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round", children: /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("path", { d: "M12 20v-8m0 0V4m0 8h8m-8 0H4" }, void 0, false, {
+              fileName: "app/routes/_index.tsx",
+              lineNumber: 164,
+              columnNumber: 21
+            }, this) }, void 0, false, {
+              fileName: "app/routes/_index.tsx",
+              lineNumber: 163,
+              columnNumber: 19
+            }, this),
+            "Advanced Settings"
+          ] }, void 0, true, {
             fileName: "app/routes/_index.tsx",
-            lineNumber: 106,
-            columnNumber: 13
+            lineNumber: 156,
+            columnNumber: 17
           }, this),
           /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("div", { className: "grid gap-4 card", style: {
-            marginTop: "1rem"
-          }, children: /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("div", { className: "grid", children: [
-            /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("label", { htmlFor: "maxDepth", children: [
+            marginTop: "1rem",
+            padding: "1.5rem",
+            background: "#f8fafc"
+          }, children: /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("div", { className: "form-group", children: [
+            /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("label", { htmlFor: "maxDepth", style: {
+              display: "block",
+              marginBottom: "0.5rem",
+              fontWeight: "500"
+            }, children: [
               "Maximum Crawl Depth",
               /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("span", { style: {
                 marginLeft: "0.5rem",
                 fontSize: "0.875rem",
-                color: "var(--muted-color)"
+                color: "var(--muted-color)",
+                fontWeight: "normal"
               }, children: [
                 "(Current: ",
                 /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("output", { id: "depthValue", children: "3" }, void 0, false, {
                   fileName: "app/routes/_index.tsx",
-                  lineNumber: 118,
-                  columnNumber: 31
+                  lineNumber: 186,
+                  columnNumber: 35
                 }, this),
                 ")"
               ] }, void 0, true, {
                 fileName: "app/routes/_index.tsx",
-                lineNumber: 113,
-                columnNumber: 19
+                lineNumber: 180,
+                columnNumber: 23
               }, this)
             ] }, void 0, true, {
               fileName: "app/routes/_index.tsx",
-              lineNumber: 111,
-              columnNumber: 17
+              lineNumber: 174,
+              columnNumber: 21
             }, this),
             /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("input", { type: "range", id: "maxDepth", name: "maxDepth", required: true, min: "1", max: "10", defaultValue: "3", onChange: (e) => {
               document.getElementById("depthValue").textContent = e.target.value;
-            }, "aria-invalid": actionData?.errors?.maxDepth ? true : void 0, "aria-errormessage": actionData?.errors?.maxDepth ? "maxDepth-error" : void 0 }, void 0, false, {
+            }, "aria-invalid": actionData?.errors?.maxDepth ? true : void 0, "aria-errormessage": actionData?.errors?.maxDepth ? "maxDepth-error" : void 0, style: {
+              width: "100%"
+            } }, void 0, false, {
               fileName: "app/routes/_index.tsx",
-              lineNumber: 121,
-              columnNumber: 17
+              lineNumber: 189,
+              columnNumber: 21
             }, this),
-            /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("small", { className: "help-text", children: "Set how deep the scanner should crawl into your website structure (1-10 levels)" }, void 0, false, {
+            /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("small", { className: "help-text", style: {
+              display: "block",
+              marginTop: "0.5rem",
+              color: "var(--muted-color)"
+            }, children: "Set how deep the scanner should crawl into your website structure (1-10 levels)" }, void 0, false, {
               fileName: "app/routes/_index.tsx",
-              lineNumber: 124,
-              columnNumber: 17
+              lineNumber: 194,
+              columnNumber: 21
             }, this),
             actionData?.errors?.maxDepth && /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("small", { id: "maxDepth-error", style: {
-              color: "var(--error-color)"
+              color: "var(--error-color)",
+              display: "block",
+              marginTop: "0.5rem"
             }, children: actionData.errors.maxDepth }, void 0, false, {
               fileName: "app/routes/_index.tsx",
-              lineNumber: 127,
-              columnNumber: 50
+              lineNumber: 201,
+              columnNumber: 54
             }, this)
           ] }, void 0, true, {
             fileName: "app/routes/_index.tsx",
-            lineNumber: 110,
-            columnNumber: 15
+            lineNumber: 173,
+            columnNumber: 19
           }, this) }, void 0, false, {
             fileName: "app/routes/_index.tsx",
-            lineNumber: 107,
-            columnNumber: 13
+            lineNumber: 168,
+            columnNumber: 17
           }, this)
         ] }, void 0, true, {
           fileName: "app/routes/_index.tsx",
-          lineNumber: 105,
-          columnNumber: 11
+          lineNumber: 153,
+          columnNumber: 15
         }, this)
       ] }, void 0, true, {
         fileName: "app/routes/_index.tsx",
-        lineNumber: 71,
-        columnNumber: 9
+        lineNumber: 92,
+        columnNumber: 13
+      }, this) }, void 0, false, {
+        fileName: "app/routes/_index.tsx",
+        lineNumber: 88,
+        columnNumber: 11
       }, this)
     ] }, void 0, true, {
       fileName: "app/routes/_index.tsx",
-      lineNumber: 65,
-      columnNumber: 7
+      lineNumber: 76,
+      columnNumber: 9
     }, this),
-    /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("article", { className: "card", children: [
-      /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("header", { children: [
+    /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("article", { className: "card", style: {
+      maxWidth: "800px",
+      margin: "2rem auto 0"
+    }, children: [
+      /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("header", { style: {
+        marginBottom: "2rem",
+        textAlign: "center"
+      }, children: [
         /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("h3", { children: "How It Works" }, void 0, false, {
           fileName: "app/routes/_index.tsx",
-          lineNumber: 140,
-          columnNumber: 11
+          lineNumber: 223,
+          columnNumber: 13
         }, this),
         /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("p", { children: "Three simple steps to find broken links on your website" }, void 0, false, {
           fileName: "app/routes/_index.tsx",
-          lineNumber: 141,
-          columnNumber: 11
+          lineNumber: 224,
+          columnNumber: 13
         }, this)
       ] }, void 0, true, {
         fileName: "app/routes/_index.tsx",
-        lineNumber: 139,
-        columnNumber: 9
+        lineNumber: 219,
+        columnNumber: 11
       }, this),
       /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("div", { className: "grid", children: [
-        /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("div", { className: "stats-grid", children: [
+        /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("div", { className: "stats-grid", style: {
+          gridTemplateColumns: "repeat(3, 1fr)",
+          gap: "1.5rem"
+        }, children: [
           /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("div", { className: "stat-card", children: [
             /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("div", { style: {
-              fontSize: "2rem",
-              marginBottom: "0.5rem"
+              fontSize: "2.5rem",
+              marginBottom: "1rem"
             }, children: "\u{1F50D}" }, void 0, false, {
               fileName: "app/routes/_index.tsx",
-              lineNumber: 146,
-              columnNumber: 15
+              lineNumber: 232,
+              columnNumber: 17
             }, this),
             /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("h3", { children: "1. Enter URL" }, void 0, false, {
               fileName: "app/routes/_index.tsx",
-              lineNumber: 150,
-              columnNumber: 15
+              lineNumber: 236,
+              columnNumber: 17
             }, this),
             /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("p", { children: "Input your website's URL to begin the scan" }, void 0, false, {
               fileName: "app/routes/_index.tsx",
-              lineNumber: 151,
-              columnNumber: 15
+              lineNumber: 237,
+              columnNumber: 17
             }, this)
           ] }, void 0, true, {
             fileName: "app/routes/_index.tsx",
-            lineNumber: 145,
-            columnNumber: 13
+            lineNumber: 231,
+            columnNumber: 15
           }, this),
           /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("div", { className: "stat-card", children: [
             /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("div", { style: {
-              fontSize: "2rem",
-              marginBottom: "0.5rem"
+              fontSize: "2.5rem",
+              marginBottom: "1rem"
             }, children: "\u2699\uFE0F" }, void 0, false, {
               fileName: "app/routes/_index.tsx",
-              lineNumber: 154,
-              columnNumber: 15
+              lineNumber: 240,
+              columnNumber: 17
             }, this),
             /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("h3", { children: "2. Configure" }, void 0, false, {
               fileName: "app/routes/_index.tsx",
-              lineNumber: 158,
-              columnNumber: 15
+              lineNumber: 244,
+              columnNumber: 17
             }, this),
             /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("p", { children: "Set scan depth and start the process" }, void 0, false, {
               fileName: "app/routes/_index.tsx",
-              lineNumber: 159,
-              columnNumber: 15
+              lineNumber: 245,
+              columnNumber: 17
             }, this)
           ] }, void 0, true, {
             fileName: "app/routes/_index.tsx",
-            lineNumber: 153,
-            columnNumber: 13
+            lineNumber: 239,
+            columnNumber: 15
           }, this),
           /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("div", { className: "stat-card", children: [
             /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("div", { style: {
-              fontSize: "2rem",
-              marginBottom: "0.5rem"
+              fontSize: "2.5rem",
+              marginBottom: "1rem"
             }, children: "\u{1F4CA}" }, void 0, false, {
               fileName: "app/routes/_index.tsx",
-              lineNumber: 162,
-              columnNumber: 15
+              lineNumber: 248,
+              columnNumber: 17
             }, this),
             /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("h3", { children: "3. Get Results" }, void 0, false, {
               fileName: "app/routes/_index.tsx",
-              lineNumber: 166,
-              columnNumber: 15
+              lineNumber: 252,
+              columnNumber: 17
             }, this),
             /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("p", { children: "View detailed report of broken links" }, void 0, false, {
               fileName: "app/routes/_index.tsx",
-              lineNumber: 167,
-              columnNumber: 15
+              lineNumber: 253,
+              columnNumber: 17
             }, this)
           ] }, void 0, true, {
             fileName: "app/routes/_index.tsx",
-            lineNumber: 161,
-            columnNumber: 13
+            lineNumber: 247,
+            columnNumber: 15
           }, this)
         ] }, void 0, true, {
           fileName: "app/routes/_index.tsx",
-          lineNumber: 144,
-          columnNumber: 11
+          lineNumber: 227,
+          columnNumber: 13
         }, this),
         /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("p", { className: "help-text", style: {
           textAlign: "center",
-          marginTop: "1.5rem"
+          marginTop: "2rem",
+          maxWidth: "600px",
+          margin: "2rem auto 0",
+          color: "var(--muted-color)",
+          lineHeight: "1.6"
         }, children: "Our tool will automatically crawl your website, checking each link it finds. You'll get a comprehensive report showing any broken links, their locations, and the specific issues encountered." }, void 0, false, {
           fileName: "app/routes/_index.tsx",
-          lineNumber: 170,
-          columnNumber: 11
+          lineNumber: 256,
+          columnNumber: 13
         }, this)
       ] }, void 0, true, {
         fileName: "app/routes/_index.tsx",
-        lineNumber: 143,
-        columnNumber: 9
+        lineNumber: 226,
+        columnNumber: 11
       }, this)
     ] }, void 0, true, {
       fileName: "app/routes/_index.tsx",
-      lineNumber: 138,
-      columnNumber: 7
+      lineNumber: 215,
+      columnNumber: 9
     }, this),
-    actionData?.scanId && /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("article", { className: "card", role: "alert", style: {
+    actionData?.scanId && /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("div", { style: {
+      maxWidth: "1400px",
+      margin: "2rem auto",
+      padding: "0 2rem"
+    }, children: /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("article", { className: "card", role: "alert", style: {
       background: "#f0fdf4",
       borderColor: "var(--success-color)"
     }, children: [
@@ -4444,23 +4543,23 @@ function Index() {
           marginRight: "0.5rem"
         }, children: "\u2713" }, void 0, false, {
           fileName: "app/routes/_index.tsx",
-          lineNumber: 189,
-          columnNumber: 15
+          lineNumber: 284,
+          columnNumber: 19
         }, this),
         "Scan Started Successfully!"
       ] }, void 0, true, {
         fileName: "app/routes/_index.tsx",
-        lineNumber: 186,
-        columnNumber: 13
+        lineNumber: 281,
+        columnNumber: 17
       }, this) }, void 0, false, {
         fileName: "app/routes/_index.tsx",
-        lineNumber: 185,
-        columnNumber: 11
+        lineNumber: 280,
+        columnNumber: 15
       }, this),
       /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("p", { children: "Your website scan has been initiated. View the progress and results here:" }, void 0, false, {
         fileName: "app/routes/_index.tsx",
-        lineNumber: 195,
-        columnNumber: 11
+        lineNumber: 290,
+        columnNumber: 15
       }, this),
       /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("div", { className: "button-group", children: /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("a", { href: `/scans/${actionData.scanId}`, role: "button", style: {
         display: "inline-flex",
@@ -4470,58 +4569,72 @@ function Index() {
         /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("svg", { width: "20", height: "20", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round", children: [
           /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("path", { d: "M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z" }, void 0, false, {
             fileName: "app/routes/_index.tsx",
-            lineNumber: 205,
-            columnNumber: 17
+            lineNumber: 300,
+            columnNumber: 21
           }, this),
           /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("path", { d: "M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z" }, void 0, false, {
             fileName: "app/routes/_index.tsx",
-            lineNumber: 206,
-            columnNumber: 17
+            lineNumber: 301,
+            columnNumber: 21
           }, this)
         ] }, void 0, true, {
           fileName: "app/routes/_index.tsx",
-          lineNumber: 204,
-          columnNumber: 15
+          lineNumber: 299,
+          columnNumber: 19
         }, this),
         /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("span", { children: "View Results" }, void 0, false, {
           fileName: "app/routes/_index.tsx",
-          lineNumber: 208,
-          columnNumber: 15
+          lineNumber: 303,
+          columnNumber: 19
         }, this)
       ] }, void 0, true, {
         fileName: "app/routes/_index.tsx",
-        lineNumber: 199,
-        columnNumber: 13
+        lineNumber: 294,
+        columnNumber: 17
       }, this) }, void 0, false, {
         fileName: "app/routes/_index.tsx",
-        lineNumber: 198,
-        columnNumber: 11
+        lineNumber: 293,
+        columnNumber: 15
       }, this)
     ] }, void 0, true, {
       fileName: "app/routes/_index.tsx",
-      lineNumber: 181,
-      columnNumber: 30
+      lineNumber: 276,
+      columnNumber: 13
+    }, this) }, void 0, false, {
+      fileName: "app/routes/_index.tsx",
+      lineNumber: 271,
+      columnNumber: 32
     }, this),
     /* @__PURE__ */ (0, import_jsx_dev_runtime.jsxDEV)("style", { children: `
-          @keyframes loading {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-          }
-          .loading {
-            display: inline-block;
-            width: 1rem;
-            height: 1rem;
-            border: 2px solid #ffffff;
-            border-top-color: transparent;
-            border-radius: 50%;
-            animation: loading 0.75s infinite linear;
-          }
-        ` }, void 0, false, {
+            @keyframes loading {
+              0% { transform: rotate(0deg); }
+              100% { transform: rotate(360deg); }
+            }
+            .loading {
+              display: inline-block;
+              width: 1rem;
+              height: 1rem;
+              border: 2px solid #ffffff;
+              border-top-color: transparent;
+              border-radius: 50%;
+              animation: loading 0.75s infinite linear;
+            }
+
+            @media (max-width: 768px) {
+              .grid {
+                grid-template-columns: 1fr !important;
+              }
+            }
+          ` }, void 0, false, {
       fileName: "app/routes/_index.tsx",
-      lineNumber: 213,
-      columnNumber: 7
+      lineNumber: 309,
+      columnNumber: 9
     }, this)
   ] }, void 0, true, {
+    fileName: "app/routes/_index.tsx",
+    lineNumber: 68,
+    columnNumber: 7
+  }, this) }, void 0, false, {
     fileName: "app/routes/_index.tsx",
     lineNumber: 64,
     columnNumber: 10
@@ -4539,4 +4652,4 @@ export {
   Index as default,
   meta
 };
-//# sourceMappingURL=/build/routes/_index-GSMVE4NH.js.map
+//# sourceMappingURL=/build/routes/_index-NDHJOPDG.js.map
