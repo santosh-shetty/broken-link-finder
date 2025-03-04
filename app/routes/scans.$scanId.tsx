@@ -34,34 +34,58 @@ export default function ScanResults() {
   }, [scan.status, revalidator]);
 
   return (
-    <div className="grid gap-4">
-      <article>
+    <div className="grid gap-6">
+      <article className="card">
         <header>
-          <h2>Scan Status: {scan.status}</h2>
+          <h2>Scan Results</h2>
+          <p>Status: <span className={`badge ${scan.status}`}>{scan.status}</span></p>
         </header>
+
+        <div className="stats-grid">
+          <div className="stat-card">
+            <h3>{scan.totalLinks}</h3>
+            <p>Total Links</p>
+          </div>
+          <div className="stat-card">
+            <h3>{scan.brokenLinks}</h3>
+            <p>Broken Links</p>
+          </div>
+          <div className="stat-card">
+            <h3>{scan.maxDepth}</h3>
+            <p>Max Depth</p>
+          </div>
+        </div>
+
         <div className="grid">
-          <p>URL: {scan.url}</p>
-          <p>Total Links: {scan.totalLinks}</p>
-          <p>Broken Links: {scan.brokenLinks}</p>
+          <p><strong>Website:</strong> {scan.url}</p>
+          <p><strong>Started:</strong> {new Date(scan.startedAt).toLocaleString()}</p>
           {scan.completedAt && (
-            <p>
-              Completed:{" "}
-              {new Date(scan.completedAt).toLocaleString()}
-            </p>
+            <p><strong>Completed:</strong> {new Date(scan.completedAt).toLocaleString()}</p>
           )}
         </div>
       </article>
 
+      {scan.status === "running" && (
+        <article className="card" role="alert">
+          <div className="grid">
+            <p>Scanning in progress... The results will update automatically.</p>
+            <progress></progress>
+          </div>
+        </article>
+      )}
+
       {brokenLinks.length > 0 && (
-        <article>
+        <article className="card">
           <header>
-            <h3>Broken Links</h3>
+            <h3>Broken Links Found</h3>
+            <p>We found {brokenLinks.length} broken links on your website</p>
           </header>
+
           <div className="overflow-auto">
-            <table>
+            <table role="grid">
               <thead>
                 <tr>
-                  <th>URL</th>
+                  <th>Broken Link</th>
                   <th>Source Page</th>
                   <th>Status</th>
                   <th>Error</th>
@@ -71,7 +95,12 @@ export default function ScanResults() {
                 {brokenLinks.map((link) => (
                   <tr key={link.id}>
                     <td>
-                      <a href={link.url} target="_blank" rel="noopener noreferrer">
+                      <a
+                        href={link.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="link"
+                      >
                         {link.url}
                       </a>
                     </td>
@@ -80,12 +109,17 @@ export default function ScanResults() {
                         href={link.sourceUrl}
                         target="_blank"
                         rel="noopener noreferrer"
+                        className="link"
                       >
                         {link.sourceUrl}
                       </a>
                     </td>
-                    <td>{link.statusCode}</td>
-                    <td>{link.error}</td>
+                    <td>
+                      <span className="badge error">
+                        {link.statusCode || "Error"}
+                      </span>
+                    </td>
+                    <td>{link.error || "HTTP " + link.statusCode}</td>
                   </tr>
                 ))}
               </tbody>
@@ -94,17 +128,57 @@ export default function ScanResults() {
         </article>
       )}
 
-      {scan.status === "completed" && (
-        <div className="grid">
+      <div className="button-group">
+        <a href="/" role="button" className="secondary">
+          New Scan
+        </a>
+        {scan.status === "completed" && brokenLinks.length > 0 && (
           <a
             href={`/scans/${scan.id}/export`}
-            className="button"
+            role="button"
             download="broken-links.csv"
           >
             Export Results (CSV)
           </a>
-        </div>
-      )}
+        )}
+      </div>
+
+      <style>
+        {`
+          .badge {
+            display: inline-block;
+            padding: 0.25rem 0.5rem;
+            border-radius: 999px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            text-transform: capitalize;
+          }
+          .badge.running {
+            background: var(--primary);
+            color: white;
+          }
+          .badge.completed {
+            background: var(--form-element-valid-border-color);
+            color: white;
+          }
+          .badge.error {
+            background: var(--form-element-invalid-border-color);
+            color: white;
+          }
+          .badge.pending {
+            background: var(--muted-border-color);
+            color: var(--muted-color);
+          }
+          .link {
+            color: var(--primary);
+            text-decoration: none;
+            word-break: break-all;
+          }
+          .link:hover {
+            text-decoration: underline;
+          }
+        `}
+      </style>
     </div>
   );
 }
