@@ -1,79 +1,93 @@
 import { nanoid } from "nanoid";
 
-export type Scan = {
+interface Link {
+  url: string;
+  foundOn: string;
+  error?: string;
+}
+
+interface Scan {
   id: string;
   url: string;
-  status: "pending" | "running" | "completed" | "error";
+  maxDepth: number;
+  status: "pending" | "running" | "completed";
   startedAt: number;
   completedAt?: number;
-  totalLinks: number;
-  brokenLinks: number;
-  maxDepth: number;
-};
+  links: Link[];
+  crawledUrls: Set<string>;
+  totalUrls: number;
+}
 
-export type Link = {
-  id: string;
-  scanId: string;
-  url: string;
-  sourceUrl: string;
-  statusCode?: number;
-  error?: string;
-  isInternal: boolean;
-  depth: number;
-  checkedAt: number;
-};
-
-// In-memory storage
 const scans = new Map<string, Scan>();
-const links = new Map<string, Link[]>();
 
-export function createScan(url: string, maxDepth: number = 3): Scan {
+export function createScan(url: string, maxDepth: number): Scan {
   const scan: Scan = {
     id: nanoid(),
     url,
+    maxDepth,
     status: "pending",
     startedAt: Date.now(),
-    totalLinks: 0,
-    brokenLinks: 0,
-    maxDepth,
+    links: [],
+    crawledUrls: new Set(),
+    totalUrls: 0
   };
 
   scans.set(scan.id, scan);
-  links.set(scan.id, []);
   return scan;
 }
 
-export function getScan(id: string): Scan | null {
-  return scans.get(id) || null;
+export function getScan(id: string): Scan | undefined {
+  return scans.get(id);
 }
 
-export function updateScan(scan: Partial<Scan> & { id: string }): void {
-  const existingScan = scans.get(scan.id);
-  if (existingScan) {
-    scans.set(scan.id, { ...existingScan, ...scan });
+export function updateScan(id: string, updates: Partial<Scan>): void {
+  const scan = scans.get(id);
+  if (scan) {
+    Object.assign(scan, updates);
   }
 }
 
-export function addLink(link: Omit<Link, "id">): Link {
-  const fullLink: Link = {
-    ...link,
-    id: nanoid(),
-  };
-
-  const scanLinks = links.get(link.scanId) || [];
-  scanLinks.push(fullLink);
-  links.set(link.scanId, scanLinks);
-
-  return fullLink;
+export function addLink(scanId: string, link: Link): void {
+  const scan = scans.get(scanId);
+  if (scan) {
+    scan.links.push(link);
+  }
 }
 
-export function getBrokenLinks(scanId: string): Link[] {
-  const scanLinks = links.get(scanId) || [];
-  return scanLinks.filter(
-    (link) => link.statusCode >= 400 || link.error !== undefined
-  );
+export function addCrawledUrl(scanId: string, url: string): void {
+  const scan = scans.get(scanId);
+  if (scan) {
+    scan.crawledUrls.add(url);
+  }
 }
 
-export function getAllLinks(scanId: string): Link[] {
-  return links.get(scanId) || [];
+export function setTotalUrls(scanId: string, total: number): void {
+  const scan = scans.get(scanId);
+  if (scan) {
+    scan.totalUrls = total;
+  }
+}
+
+export function completeScan(scanId: string): void {
+  const scan = scans.get(scanId);
+  if (scan) {
+    scan.status = "completed";
+    scan.completedAt = Date.now();
+  }
+}
+
+export function getBrokenLinks(scanId: string): Array<{ url: string; sourceUrl: string; statusCode?: number; error?: string }> {
+  const scan = scans.get(scanId);
+  if (!scan) {
+    return [];
+  }
+
+  return scan.links
+    .filter(link => link.error)
+    .map(link => ({
+      url: link.url,
+      sourceUrl: link.foundOn,
+      statusCode: link.error?.includes("status") ? parseInt(link.error.match(/\d+/)?.[0] || "") : undefined,
+      error: link.error
+    }));
 }

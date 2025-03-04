@@ -1,163 +1,135 @@
 import axios from "axios";
 import * as cheerio from "cheerio";
-import { addLink, getScan, updateScan, type Scan } from "~/models/scan.server";
+import { addCrawledUrl, addLink, completeScan, setTotalUrls, updateScan } from "~/models/scan.server";
 
+// Get environment variables with defaults
 const MAX_CONCURRENT_REQUESTS = Number(process.env.MAX_CONCURRENT_REQUESTS) || 5;
 const REQUEST_TIMEOUT = Number(process.env.REQUEST_TIMEOUT) || 30000;
 
-export async function checkLink(url: string): Promise<{
-  statusCode?: number;
-  error?: string;
-}> {
+async function checkLink(url: string, foundOn: string): Promise<{ url: string; foundOn: string; error?: string }> {
   try {
-    const response = await axios.get(url, {
-      timeout: REQUEST_TIMEOUT,
-      maxRedirects: 5,
-      validateStatus: null,
-    });
-    return { statusCode: response.status };
+    await axios.head(url, { timeout: REQUEST_TIMEOUT });
+    return { url, foundOn };
   } catch (error) {
-    return { error: error.message };
+    if (axios.isAxiosError(error)) {
+      return {
+        url,
+        foundOn,
+        error: error.response ? `HTTP ${error.response.status}` : error.message
+      };
+    }
+    return { url, foundOn, error: "Unknown error" };
   }
 }
 
-export function isInternalLink(baseUrl: string, link: string): boolean {
+function normalizeUrl(baseUrl: string, url: string): string {
+  try {
+    return new URL(url, baseUrl).toString();
+  } catch {
+    return url;
+  }
+}
+
+function isInternalLink(baseUrl: string, url: string): boolean {
   try {
     const base = new URL(baseUrl);
-    const url = new URL(link, baseUrl);
-    return base.hostname === url.hostname;
+    const target = new URL(url, baseUrl);
+    return base.hostname === target.hostname;
   } catch {
     return false;
   }
 }
 
-export async function extractLinks(url: string): Promise<string[]> {
+async function extractLinks(url: string, html: string): Promise<string[]> {
+  const $ = cheerio.load(html);
+  const links: string[] = [];
+
+  $("a[href]").each((_, element) => {
+    const href = $(element).attr("href");
+    if (href) {
+      const normalizedUrl = normalizeUrl(url, href);
+      if (normalizedUrl.startsWith("http")) {
+        links.push(normalizedUrl);
+      }
+    }
+  });
+
+  return [...new Set(links)]; // Remove duplicates
+}
+
+async function crawlPage(scanId: string, url: string, maxDepth: number, depth = 0, visited = new Set<string>()): Promise<void> {
+  if (depth >= maxDepth || visited.has(url)) {
+    return;
+  }
+
+  visited.add(url);
+  addCrawledUrl(scanId, url);
+
   try {
     const response = await axios.get(url, { timeout: REQUEST_TIMEOUT });
-    const $ = cheerio.load(response.data);
-    const links = new Set<string>();
-
-    $("a").each((_, element) => {
-      const href = $(element).attr("href");
-      if (href && !href.startsWith("#") && !href.startsWith("mailto:")) {
-        try {
-          const absoluteUrl = new URL(href, url).toString();
-          links.add(absoluteUrl);
-        } catch {
-          // Invalid URL, skip
-        }
-      }
-    });
-
-    return Array.from(links);
-  } catch {
-    return [];
+    const links = await extractLinks(url, response.data);
+    
+    // Check all links concurrently in batches
+    const batches = [];
+    for (let i = 0; i < links.length; i += MAX_CONCURRENT_REQUESTS) {
+      const batch = links.slice(i, i + MAX_CONCURRENT_REQUESTS).map(link => 
+        checkLink(link, url).then(result => {
+          addLink(scanId, result);
+          
+          // Recursively crawl internal links
+          if (!result.error && isInternalLink(url, link) && depth < maxDepth) {
+            return crawlPage(scanId, link, maxDepth, depth + 1, visited);
+          }
+        })
+      );
+      batches.push(Promise.all(batch));
+    }
+    
+    await Promise.all(batches);
+  } catch (error) {
+    console.error(`Error crawling ${url}:`, error);
+    if (depth === 0) {
+      // If this is the initial URL and it fails, mark the scan as complete
+      completeScan(scanId);
+    }
   }
 }
 
-export async function crawlWebsite(scanId: string) {
-  /**
-   * Get the scan object for the given ID.
-   * @param {string} scanId The scan ID to retrieve.
-   * @returns {Scan | null} The scan object if found, null otherwise.
-   */
-  const scan = getScan(scanId);
+export async function crawlWebsite(scanId: string): Promise<void> {
+  const scan = await import("~/models/scan.server").then(m => m.getScan(scanId));
   if (!scan) return;
 
-  updateScan({ id: scanId, status: "running" });
-
-  const visited = new Set<string>();
-  const queue: Array<{ url: string; depth: number; sourceUrl: string }> = [
-    { url: scan.url, depth: 0, sourceUrl: scan.url },
-  ];
-
-  let processing = 0;
-  let totalLinks = 0;
-  let brokenLinks = 0;
-
-  async function processNext() {
-    if (processing >= MAX_CONCURRENT_REQUESTS || queue.length === 0) {
-      return;
-    }
-
-    const { url, depth, sourceUrl } = queue.shift()!;
-    if (visited.has(url) || depth > scan.maxDepth) {
-      if (queue.length > 0) await processNext();
-      return;
-    }
-
-    processing++;
-    visited.add(url);
-    totalLinks++;
-
-    try {
-      // Check the link
-      const result = await checkLink(url);
-      const isInternal = isInternalLink(scan.url, url);
-
-      if (result.statusCode && result.statusCode >= 400) {
-        brokenLinks++;
-      }
-
-      // Add to database
-      addLink({
-        scanId,
-        url,
-        sourceUrl,
-        statusCode: result.statusCode,
-        error: result.error,
-        isInternal,
-        depth,
-        checkedAt: Date.now(),
-      });
-
-      // Update scan stats
-      updateScan({
-        id: scanId,
-        totalLinks,
-        brokenLinks,
-      });
-
-      // If internal link and no errors, extract more links
-      if (isInternal && !result.error && result.statusCode && result.statusCode < 400) {
-        const links = await extractLinks(url);
+  try {
+    updateScan(scanId, { status: "running" });
+    
+    // First, count total URLs by doing a dry run
+    const visited = new Set<string>();
+    async function countUrls(url: string, depth = 0): Promise<void> {
+      if (depth >= scan.maxDepth || visited.has(url)) return;
+      visited.add(url);
+      
+      try {
+        const response = await axios.get(url, { timeout: REQUEST_TIMEOUT });
+        const links = await extractLinks(url, response.data);
+        
         for (const link of links) {
-          if (!visited.has(link)) {
-            queue.push({ url: link, depth: depth + 1, sourceUrl: url });
+          if (isInternalLink(url, link) && !visited.has(link)) {
+            await countUrls(link, depth + 1);
           }
         }
+      } catch (error) {
+        console.error(`Error counting URLs at ${url}:`, error);
       }
-    } catch (error) {
-      brokenLinks++;
-      addLink({
-        scanId,
-        url,
-        sourceUrl,
-        error: error.message,
-        isInternal: isInternalLink(scan.url, url),
-        depth,
-        checkedAt: Date.now(),
-      });
     }
-
-    processing--;
-    if (queue.length > 0) {
-      await processNext();
-    } else if (processing === 0) {
-      // All done
-      updateScan({
-        id: scanId,
-        status: "completed",
-        completedAt: Date.now(),
-        totalLinks,
-        brokenLinks,
-      });
-    }
-  }
-
-  // Start initial batch of requests
-  const initialBatch = Math.min(MAX_CONCURRENT_REQUESTS, queue.length);
-  for (let i = 0; i < initialBatch; i++) {
-    await processNext();
+    
+    await countUrls(scan.url);
+    setTotalUrls(scanId, visited.size);
+    
+    // Now do the actual crawl
+    await crawlPage(scanId, scan.url, scan.maxDepth);
+    completeScan(scanId);
+  } catch (error) {
+    console.error("Error during website crawl:", error);
+    completeScan(scanId);
   }
 }
